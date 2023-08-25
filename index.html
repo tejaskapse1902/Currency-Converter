@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter - Convert your currency</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .output {
+            display: none;
+        }
+
+        @media (min-width: 992px) {
+            .output {
+                width: 70% !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="d-flex justify-content-center bg-info p-4 fs-1">
+        <div class="logo">
+            <h1 class="fs-1 fw-bolder font-monospace text-center">My Currency Converter</h1>
+        </div>
+    </nav>
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+        <form action="#" method="get" class="p-lg-5 p-md-5 p-sm-5 py-5 text-center">
+            <div class="input-group mb-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" for="quantity">Choose a quantity</span>
+                    <input class="form-control" type="number" name="quantity" min="1" max="10">
+                </div>
+                <label class="input-group-text" for="Currency">Choose a Currency</label>
+                <select class="form-select" name="currency">
+                    <option selected>Choose...</option>
+                    <option value="INR">Indian Rupee</option>
+                    <option value="USD">Us Dollar</option>
+                    <option value="EUR">Euro</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-info text-black">Submit</button>
+        </form>
+
+
+
+        <div class="output w-100">
+            <h3 class="fw-bolder font-monospace text-center">
+                Here is your converted values in different currencies
+            </h3>
+            <table class="table table-info table-striped text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Currency</th>
+                        <th scope="col">Currency Code</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer class="fixed-bottom text-center fs-5 fw-bolder bg-info">
+        CopyRight &copy All rights Reserved.
+    </footer>
+    <script>
+        const populate = async (value, currency) => {
+            let myStr = ""
+            url = "https://api.currencyapi.com/v3/latest?apikey=cur_live_O7AR3kv4bPsKX0iiByz9X3RJDDyHcp8H2ybnlDQ4"
+            let response = await fetch(url)
+            let rJson = await response.json()
+            document.querySelector(".output").style.display = "block"
+            for (let key of Object.keys(rJson["data"])) {
+                myStr += `
+                    <tr>
+                        <td class="text-center">${key}</td>
+                        <td class="text-center">${rJson["data"][key]["code"]}</td>
+                        <td class="text-center">${(rJson["data"][key]["value"] * value).toFixed(2)}</td>
+                    </tr>
+                `
+            }
+            const tableBody = document.querySelector("tbody");
+            tableBody.innerHTML = myStr;
+        }
+
+        const btn = document.querySelector(".btn")
+        btn.addEventListener("click", (e) => {
+            e.preventDefault()
+            const value = parseInt(document.querySelector("input[name='quantity']").value);
+            const currency = document.querySelector("select[name='currency']").value;
+            populate(value, currency)
+        })
+
+
+    </script>
+</body>
+
+</html>
