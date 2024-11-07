@@ -20,9 +20,9 @@
 </head>
 
 <body>
-    <nav class="d-flex justify-content-center bg-info p-4 fs-1">
+    <nav class="d-flex justify-content-center border-bottom border-3 border-info p-3 fs-1">
         <div class="logo">
-            <h1 class="fs-1 fw-bolder font-monospace text-center">My Currency Converter</h1>
+            <h1 class="fs-1 fw-bolder font-monospace text-center">Currency Converter</h1>
         </div>
     </nav>
     <div class="container d-flex flex-column align-items-center justify-content-center">
@@ -49,7 +49,7 @@
             <h3 class="fw-bolder font-monospace text-center">
                 Here is your converted values in different currencies
             </h3>
-            <table class="table table-info table-striped text-center">
+            <table class="table table-bordered table-striped text-center">
                 <thead>
                     <tr>
                         <th scope="col">Currency</th>
@@ -62,9 +62,9 @@
             </table>
         </div>
     </div>
-    <footer class="fixed-bottom text-center fs-5 fw-bolder bg-info">
+<!--     <footer class="fixed-bottom text-center fs-5 fw-bolder bg-info">
         CopyRight &copy All rights Reserved.
-    </footer>
+    </footer> -->
     <script>
         const populate = async (value, currency) => {
             let myStr = ""
